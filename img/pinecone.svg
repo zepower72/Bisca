@@ -1,0 +1,15 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 5 C30 5 15 25 15 45 C15 65 30 95 50 95 C70 95 85 65 85 45 C85 25 70 5 50 5" fill="#666666"/>
+    <path d="M50 15 C35 15 25 30 25 45 C25 60 35 85 50 85 C65 85 75 60 75 45 C75 30 65 15 50 15" fill="none" stroke="#666666" stroke-width="2"/>
+    <!-- Motif d'écailles -->
+    <g fill="none" stroke="#666666" stroke-width="1.5">
+        <path d="M50 25 Q40 30 40 40"/>
+        <path d="M50 25 Q60 30 60 40"/>
+        <path d="M45 35 Q40 40 40 50"/>
+        <path d="M55 35 Q60 40 60 50"/>
+        <path d="M45 45 Q40 50 40 60"/>
+        <path d="M55 45 Q60 50 60 60"/>
+        <path d="M45 55 Q40 60 40 70"/>
+        <path d="M55 55 Q60 60 60 70"/>
+    </g>
+</svg> 

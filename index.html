@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerces Biscarrosse Plage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="theme-color" content="#FF6B6B">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Splash screens pour iOS -->
+    <link rel="apple-touch-startup-image" href="img/splash/apple-splash-2048-2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+    <!-- Ajouter d'autres tailles de splash screen selon les besoins -->
+</head>
+<body>
+    <nav class="bottom-nav">
+        <a href="#home" class="active"><span class="material-icons">home</span>Accueil</a>
+        <a href="#map"><span class="material-icons">map</span>Carte</a>
+        <a href="#shop"><span class="material-icons">shopping_cart</span>Click & Collect</a>
+        <a href="#contact"><span class="material-icons">info</span>Contact</a>
+    </nav>
+
+    <main>
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="logo-container">
+                    <img src="img/logo-acbp.png" alt="Logo Association des Commerçants de Biscarrosse Plage" class="site-logo">
+                </div>
+                <h1>Bienvenue à Biscarrosse Plage</h1>
+                <p class="subtitle">Découvrez nos commerces locaux</p>
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <span class="material-icons search-icon">search</span>
+                        <input type="text" id="searchInput" placeholder="Rechercher un commerce...">
+                    </div>
+                    <button id="gpsButton" class="gps-button" title="Me localiser">
+                        <span class="material-icons">my_location</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="categories">
+                <a href="#restaurants" class="category-item">
+                    <span class="material-icons">restaurant</span>
+                    <span>Restaurants</span>
+                </a>
+                <a href="#boutiques" class="category-item">
+                    <span class="material-icons">shopping_bag</span>
+                    <span>Boutiques</span>
+                </a>
+                <a href="#plage" class="category-item">
+                    <span class="material-icons">beach_access</span>
+                    <span>Plage</span>
+                </a>
+                <a href="#activites" class="category-item">
+                    <span class="material-icons">local_activity</span>
+                    <span>Activités</span>
+                </a>
+            </div>
+
+            <div class="section-container">
+                <h2 class="section-title">Commerces à la une</h2>
+                <div class="shops-grid">
+                    <!-- Les commerces seront ajoutés dynamiquement -->
+                </div>
+            </div>
+
+            <div class="featured-events">
+                <h2 class="section-title">Événements à venir</h2>
+                <div class="events-slider">
+                    <!-- Les événements seront ajoutés dynamiquement -->
+                </div>
+            </div>
+        </section>
+
+        <section id="map" class="page">
+            <div id="map-container"></div>
+        </section>
+
+        <section id="shop" class="page">
+            <div class="cart-header">
+                <h2>Mon Panier</h2>
+                <div class="cart-steps">
+                    <div class="step active" data-step="cart">
+                        <span class="material-icons">shopping_cart</span>
+                        <span>Panier</span>
+                    </div>
+                    <div class="step" data-step="pickup">
+                        <span class="material-icons">schedule</span>
+                        <span>Retrait</span>
+                    </div>
+                    <div class="step" data-step="payment">
+                        <span class="material-icons">payment</span>
+                        <span>Paiement</span>
+                    </div>
+                </div>
+            </div>
+            <div class="shop-container"></div>
+        </section>
+
+        <section id="contact" class="page">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <p>Association des Commerçants</p>
+                <p>Biscarrosse Plage</p>
+                <p>Email: contact@commerces-biscarrosse.fr</p>
+                <p>Tél: 05.XX.XX.XX.XX</p>
+            </div>
+        </section>
+
+        <section id="legal" class="page">
+            <h2>Mentions Légales</h2>
+            
+            <div class="legal-content">
+                <article class="legal-section">
+                    <h3>Association des Commerçants de Biscarrosse Plage</h3>
+                    <p>Association loi 1901<br>
+                    Siège social : [Adresse complète]<br>
+                    SIRET : XX XXX XXX XXXXX<br>
+                    Président : [Nom du président]</p>
+                </article>
+
+                <article class="legal-section">
+                    <h3>Hébergement du site</h3>
+                    <p>Ce site est hébergé par :<br>
+                    [Nom de l'hébergeur]<br>
+                    [Adresse de l'hébergeur]</p>
+                </article>
+
+                <article class="legal-section">
+                    <h3>Protection des données (RGPD)</h3>
+                    <p>Les informations collectées sur ce site sont utilisées uniquement dans le cadre de votre utilisation des services proposés. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>
+                </article>
+
+                <article class="legal-section">
+                    <h3>Cookies</h3>
+                    <p>Ce site utilise des cookies techniques nécessaires à son bon fonctionnement. En naviguant sur ce site, vous acceptez leur utilisation.</p>
+                </article>
+
+                <article class="legal-section">
+                    <h3>Propriété intellectuelle</h3>
+                    <p>L'ensemble du contenu de ce site (images, textes, logos...) est protégé par le droit d'auteur. Toute reproduction sans autorisation préalable est interdite.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="restaurants" class="page category-page">
+            <div class="category-header">
+                <div class="category-icon">
+                    <span class="material-icons" style="color: var(--primary-color)">restaurant</span>
+                </div>
+                <h2>Restaurants</h2>
+                <p class="category-description">Découvrez les saveurs de Biscarrosse Plage</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="restaurant">Restaurants</button>
+                <button class="filter-btn" data-filter="cafe">Cafés</button>
+                <button class="filter-btn" data-filter="snack">Snacks</button>
+            </div>
+
+            <div class="shops-grid restaurants-grid">
+                <!-- Les restaurants seront ajoutés dynamiquement -->
+            </div>
+        </section>
+
+        <section id="boutiques" class="page category-page">
+            <div class="category-header">
+                <div class="category-icon">
+                    <span class="material-icons" style="color: var(--secondary-color)">shopping_bag</span>
+                </div>
+                <h2>Boutiques</h2>
+                <p class="category-description">Shopping et commerces locaux</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Toutes</button>
+                <button class="filter-btn" data-filter="mode">Mode</button>
+                <button class="filter-btn" data-filter="surf">Surf</button>
+                <button class="filter-btn" data-filter="souvenirs">Souvenirs</button>
+            </div>
+
+            <div class="shops-grid boutiques-grid">
+                <!-- Les boutiques seront ajoutées dynamiquement -->
+            </div>
+        </section>
+
+        <section id="plage" class="page category-page">
+            <div class="category-header">
+                <div class="category-icon">
+                    <span class="material-icons" style="color: var(--accent-color-1)">beach_access</span>
+                </div>
+                <h2>Plage</h2>
+                <p class="category-description">Services et activités balnéaires</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Tout</button>
+                <button class="filter-btn" data-filter="location">Locations</button>
+                <button class="filter-btn" data-filter="cours">Cours</button>
+                <button class="filter-btn" data-filter="services">Services</button>
+            </div>
+
+            <div class="shops-grid plage-grid">
+                <!-- Les services plage seront ajoutés dynamiquement -->
+            </div>
+        </section>
+
+        <section id="activites" class="page category-page">
+            <div class="category-header">
+                <div class="category-icon">
+                    <span class="material-icons" style="color: var(--accent-color-2)">local_activity</span>
+                </div>
+                <h2>Activités</h2>
+                <p class="category-description">Loisirs et divertissements</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Toutes</button>
+                <button class="filter-btn" data-filter="sport">Sports</button>
+                <button class="filter-btn" data-filter="culture">Culture</button>
+                <button class="filter-btn" data-filter="loisirs">Loisirs</button>
+            </div>
+
+            <div class="shops-grid activites-grid">
+                <!-- Les activités seront ajoutées dynamiquement -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#legal">Mentions légales</a>
+            <a href="#privacy">Confidentialité</a>
+            <a href="#cgv">CGV</a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html> 
