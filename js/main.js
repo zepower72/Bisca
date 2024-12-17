@@ -356,6 +356,8 @@ const categoryData = {
             rating: 4.7,
             category: "restaurant",
             description: "Cuisine traditionnelle face à l'océan",
+            lat: 44.4439,
+            lng: -1.2467,
             horaires: "12h-14h30, 19h-22h30",
             specialite: "Fruits de mer",
             clickAndCollect: {
@@ -401,6 +403,8 @@ const categoryData = {
             rating: 4.5,
             category: "cafe",
             description: "Petit-déjeuner et brunch toute la journée",
+            lat: 44.4435,
+            lng: -1.2470,
             horaires: "8h-19h",
             specialite: "Brunch",
             clickAndCollect: {
@@ -427,6 +431,8 @@ const categoryData = {
             rating: 4.3,
             category: "snack",
             description: "Snacking de qualité les pieds dans le sable",
+            lat: 44.4432,
+            lng: -1.2475,
             horaires: "11h-22h",
             specialite: "Planches apéro",
             social: {
@@ -471,6 +477,8 @@ const categoryData = {
             rating: 4.8,
             category: "surf",
             description: "Tout l'équipement pour le surf",
+            lat: 44.4437,
+            lng: -1.2465,
             services: "Location, Réparation",
             clickAndCollect: {
                 enabled: true,
@@ -507,6 +515,8 @@ const categoryData = {
             rating: 4.4,
             category: "mode",
             description: "Prêt-à-porter été et accessoires",
+            lat: 44.4441,
+            lng: -1.2469,
             services: "Retouches",
             social: {
                 website: "https://beachmode-bisca.fr",
@@ -530,6 +540,8 @@ const categoryData = {
             rating: 4.2,
             category: "souvenirs",
             description: "Cadeaux et souvenirs locaux",
+            lat: 44.4438,
+            lng: -1.2472,
             services: "Emballage cadeau",
             social: {
                 website: "https://souvenirs-ocean-bisca.fr",
@@ -581,6 +593,8 @@ const categoryData = {
             rating: 4.9,
             category: "location",
             description: "Location de planches et combinaisons",
+            lat: 44.4436,
+            lng: -1.2474,
             equipements: "Planches, Combinaisons, Bodyboards",
             social: {
                 website: "https://location-surf-bisca.fr",
@@ -613,6 +627,8 @@ const categoryData = {
             rating: 4.8,
             category: "cours",
             description: "Cours tous niveaux",
+            lat: 44.4433,
+            lng: -1.2476,
             services: "Cours particuliers, Stages",
             social: {
                 website: "https://ecole-surf-bisca.fr",
@@ -645,6 +661,8 @@ const categoryData = {
             rating: 4.6,
             category: "services",
             description: "Location de transats et parasols",
+            lat: 44.4431,
+            lng: -1.2478,
             equipements: "Transats, Parasols, Cabines",
             social: {
                 website: "https://beach-services-bisca.fr",
@@ -680,6 +698,8 @@ const categoryData = {
             rating: 4.7,
             category: "sport",
             description: "Activités nautiques variées",
+            lat: 44.4434,
+            lng: -1.2473,
             activites: "Voile, Paddle, Kayak",
             social: {
                 website: "https://club-nautique-bisca.fr",
@@ -711,6 +731,8 @@ const categoryData = {
             rating: 4.5,
             category: "culture",
             description: "Projections en plein air",
+            lat: 44.4440,
+            lng: -1.2471,
             programme: "Films récents et classiques",
             social: {
                 website: "https://cinema-plage-bisca.fr",
@@ -759,6 +781,8 @@ const categoryData = {
             rating: 4.4,
             category: "loisirs",
             description: "Parcours 18 trous thématique",
+            lat: 44.4442,
+            lng: -1.2468,
             horaires: "10h-23h en été",
             social: {
                 website: "https://minigolf-bisca.fr",
@@ -1517,3 +1541,136 @@ function proceedToCheckout() {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
 });
+
+// Fonction pour gérer la géolocalisation
+function handleGeolocation() {
+    const gpsButton = document.getElementById('gpsButton');
+    
+    gpsButton.addEventListener('click', () => {
+        // Ajouter la classe loading pour l'animation
+        gpsButton.classList.add('loading');
+        
+        // Vérifier si la géolocalisation est supportée
+        if (!navigator.geolocation) {
+            alert('La géolocalisation n\'est pas supportée par votre navigateur');
+            gpsButton.classList.remove('loading');
+            return;
+        }
+
+        // Options pour la géolocalisation
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        // Succès de la géolocalisation
+        function success(pos) {
+            const crd = pos.coords;
+            
+            // Rechercher les commerces proches
+            searchNearbyShops(crd.latitude, crd.longitude);
+            
+            // Retirer l'animation de chargement
+            gpsButton.classList.remove('loading');
+        }
+
+        // Erreur de géolocalisation
+        function error(err) {
+            console.warn(`ERREUR (${err.code}): ${err.message}`);
+            alert('Impossible d\'obtenir votre position');
+            gpsButton.classList.remove('loading');
+        }
+
+        // Demander la position
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    });
+}
+
+// Fonction pour rechercher les commerces proches
+function searchNearbyShops(lat, lon) {
+    // Fonction pour calculer la distance entre deux points
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Rayon de la Terre en km
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                 Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+
+    // Récupérer tous les commerces
+    const allShops = [
+        ...categoryData.restaurants,
+        ...categoryData.boutiques
+    ];
+
+    // Ajouter la distance à chaque commerce et trier par proximité
+    const shopsWithDistance = allShops
+        .map(shop => ({
+            ...shop,
+            distance: calculateDistance(lat, lon, shop.lat || 44.4439, shop.lng || -1.2467) // Coordonnées par défaut si non définies
+        }))
+        .sort((a, b) => a.distance - b.distance);
+
+    // Afficher les résultats dans une modal ou une liste
+    displayNearbyShops(shopsWithDistance.slice(0, 5)); // Afficher les 5 plus proches
+
+    // Si la carte est disponible, centrer dessus
+    if (typeof updateMapPosition === 'function') {
+        updateMapPosition(lat, lon);
+    }
+}
+
+// Fonction pour afficher les commerces proches
+function displayNearbyShops(shops) {
+    // Créer ou récupérer le conteneur des résultats
+    let resultsContainer = document.querySelector('.search-results');
+    if (!resultsContainer) {
+        resultsContainer = document.createElement('div');
+        resultsContainer.className = 'search-results';
+        document.querySelector('.search-bar').appendChild(resultsContainer);
+    }
+
+    // Générer le HTML pour chaque commerce
+    const resultsHTML = shops.map(shop => `
+        <div class="result-item" data-lat="${shop.lat || 44.4439}" data-lng="${shop.lng || -1.2467}">
+            <span class="material-icons">
+                ${shop.category === 'restaurant' || shop.category === 'cafe' || shop.category === 'snack' 
+                    ? 'restaurant' 
+                    : 'shopping_bag'}
+            </span>
+            <div class="result-info">
+                <div>${shop.name}</div>
+                <div class="result-type">${shop.category}</div>
+            </div>
+            <span class="distance">${shop.distance.toFixed(1)} km</span>
+        </div>
+    `).join('');
+
+    // Mettre à jour le contenu et afficher les résultats
+    resultsContainer.innerHTML = resultsHTML || '<div class="result-item">Aucun commerce trouvé à proximité</div>';
+    resultsContainer.classList.add('active');
+
+    // Ajouter les événements de clic sur les résultats
+    resultsContainer.querySelectorAll('.result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const lat = parseFloat(item.dataset.lat);
+            const lng = parseFloat(item.dataset.lng);
+            
+            // Naviguer vers la carte et centrer sur le commerce
+            document.querySelector('a[href="#map"]').click();
+            if (window.map) {
+                window.map.setView([lat, lng], 18);
+                // Trouver et ouvrir le marqueur correspondant
+                window.markers?.forEach(marker => {
+                    if (marker.getLatLng().lat === lat && marker.getLatLng().lng === lng) {
+                        marker.openPopup();
+                    }
+                });
+            }
+        });
+    });
+}

@@ -7,6 +7,9 @@
     --primary-rgb: 0, 167, 225;
     --background-color: #f8f9fa;
     --text-color: #2d3436;
+    --mobile: 480px;
+    --tablet: 768px;
+    --desktop: 1024px;
 }
 
 * {
@@ -19,6 +22,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    margin: 0;
+    padding-bottom: 60px;
 }
 
 .bottom-nav {
@@ -30,6 +35,7 @@ body {
     background: white;
     padding: 12px 0;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 .bottom-nav a {
@@ -69,9 +75,9 @@ body {
 
 .shops-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 15px;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -235,9 +241,14 @@ body {
     transform: scale(1.05);
 }
 
+/* Animation de chargement */
 .gps-button.loading {
-    animation: rotate 1s infinite linear;
+    pointer-events: none;
     opacity: 0.8;
+}
+
+.gps-button.loading .material-icons {
+    animation: rotate 1s infinite linear;
 }
 
 @keyframes rotate {
@@ -603,20 +614,14 @@ body {
     scroll-snap-type: x mandatory;
     scroll-padding: 20px;
     -webkit-overflow-scrolling: touch;
+    justify-content: center;
 }
 
 .event-card {
     scroll-snap-align: start;
-    background: white;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.event-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
 .event-card img {
@@ -1203,8 +1208,12 @@ body {
 
 /* Arrière-plans spécifiques pour chaque catégorie */
 #restaurants .category-header {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
                 url('../img/restaurant-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
 }
 
 #boutiques .category-header {
@@ -2226,4 +2235,151 @@ body {
     font-size: 48px;
     color: #ccc;
     margin-bottom: 20px;
+}
+
+/* Centrage des commerces dans la page boutiques */
+.boutiques-grid {
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+    .boutiques-grid {
+        padding: 0 15px;
+    }
+}
+
+/* Style de l'en-tête des restaurants */
+#restaurants .category-header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('../img/restaurant-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet de parallaxe léger au survol */
+#restaurants .category-header:hover {
+    background-position: center 55%;
+    transition: background-position 0.3s ease-out;
+}
+
+/* Centrage des grilles de commerces */
+.shops-grid {
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 15px;
+}
+
+/* Ajustement de la taille des cartes pour un meilleur alignement */
+.shop-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+/* Responsive design pour différentes tailles d'écran */
+@media (min-width: 1024px) {
+    .shops-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+        gap: 30px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .shops-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shops-grid {
+        padding: 10px;
+        gap: 15px;
+    }
+}
+
+/* Styles communs pour tous les category-header */
+.category-header {
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+    overflow: hidden;
+    transition: background-position 0.3s ease-out;
+}
+
+.category-header:hover {
+    background-position: center 55% !important;
+}
+
+/* Arrière-plans spécifiques pour chaque catégorie */
+#restaurants .category-header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('../img/restaurant-bg.jpg');
+    /* Image suggérée : une terrasse de restaurant avec vue mer */
+}
+
+#boutiques .category-header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('../img/shopping-bg.jpg');
+    /* Image suggérée : une rue commerçante animée de Biscarrosse */
+}
+
+#plage .category-header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('../img/beach-bg.jpg');
+    /* Image suggérée : la plage de Biscarrosse avec parasols et océan */
+}
+
+#activites .category-header {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                url('../img/activities-bg.jpg');
+    /* Image suggérée : activités nautiques ou sportives sur la plage */
+}
+
+/* Style pour les événements à venir */
+.featured-events {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.events-slider {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 350px;
+    gap: 30px;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 20px;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+}
+
+.event-card {
+    scroll-snap-align: start;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+/* Responsive design pour les événements */
+@media (max-width: 768px) {
+    .featured-events {
+        padding: 20px 10px;
+    }
+    
+    .events-slider {
+        grid-auto-columns: 300px;
+        gap: 20px;
+    }
+    
+    .event-card {
+        max-width: 300px;
+    }
 }
